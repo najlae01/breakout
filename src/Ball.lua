@@ -15,10 +15,12 @@
 
 Ball = Class{}
 
-function Ball:init(skin)
+function Ball:init(x, y)
     -- simple positional and dimensional variables
     self.width = 8
     self.height = 8
+    self.x = x
+    self.y = y
 
     -- these variables are for keeping track of our velocity on both the
     -- X and Y axis, since the ball can move in two dimensions
@@ -27,7 +29,7 @@ function Ball:init(skin)
 
     -- this will effectively be the color of our ball, and we will index
     -- our table of Quads relating to the global block texture using this
-    self.skin = skin
+    self.skin = math.random(7)
 end
 
 --[[
@@ -90,4 +92,41 @@ function Ball:render()
     -- gBallFrames is a table of quads mapping to each individual ball skin in the texture
     love.graphics.draw(gTextures['main'], gFrames['balls'][self.skin],
         self.x, self.y)
+end
+
+function Ball:collidesWithBrick(brick)
+
+    if self.x + 2 < brick.x and self.dx > 0 then
+        
+        -- flip x velocity and reset position outside of brick
+        self.dx = -self.dx
+        self.x = brick.x - 8
+
+    -- right edge; only check if we're moving left, , and offset the check by a couple of pixels
+    -- so that flush corner hits register as Y flips, not X flips
+    elseif self.x + 6 > brick.x + brick.width and self.dx < 0 then
+        
+        -- flip x velocity and reset position outside of brick
+        self.dx = -self.dx
+        self.x = brick.x + 32
+
+    -- top edge if no X collisions, always check
+    elseif self.y < brick.y then
+        
+        -- flip y velocity and reset position outside of brick
+        self.dy = -self.dy
+        self.y = brick.y - 8
+
+    -- bottom edge if no X collisions or top collision, last possibility
+    else
+        
+        -- flip y velocity and reset position outside of brick
+        self.dy = -self.dy
+        self.y = brick.y + 16
+    end
+
+    -- slightly scale the y velocity to speed up the game, capping at +- 150
+    if math.abs(self.dy) < 150 then
+        self.dy = self.dy * 1.02
+    end
 end

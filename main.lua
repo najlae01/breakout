@@ -67,7 +67,8 @@ function love.load()
         ['balls'] = GenerateQuadsBalls(gTextures['main']),
         ['bricks'] = GenerateQuadsBricks(gTextures['main']),
         ['hearts'] = GenerateQuads(gTextures['hearts'], 10, 9),
-        ['powerups'] = GenerateQuadsPowerup(gTextures['main'])
+        ['powerups'] = GenerateQuadsPowerup(gTextures['main']),
+        ['locked'] = GenerateQuadLockedBrick(gTextures['main'])
     }
     
     -- initialize our virtual resolution, which will be rendered within our
@@ -305,7 +306,12 @@ function renderScore(score)
 end
 
 
-function renderKeyPowerup()
+function renderUnlockPowerup()
     local powerX = VIRTUAL_WIDTH - 120
     love.graphics.draw(gTextures['main'], gFrames['powerups'][10], powerX, 2)
+end
+
+function renderMultiballPowerup()
+    local powerX = VIRTUAL_WIDTH - 140
+    love.graphics.draw(gTextures['main'], gFrames['powerups'][9], powerX, 2)
 end

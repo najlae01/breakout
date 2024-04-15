@@ -31,7 +31,6 @@ LevelMaker = Class{}
     brick colors and tiers to choose based on the level passed in.
 ]]
 function LevelMaker.createMap(level)
-    local levelMap = {}
     local bricks = {}
 
     -- randomly choose the number of rows
@@ -119,6 +118,11 @@ function LevelMaker.createMap(level)
             ::continue::
         end
     end 
+
+    -- randomly lock the brick in the middle at the top
+    if math.random(10) <= 7 then
+        bricks[math.ceil(numCols/2)].isLocked = true
+    end
 
     -- in the event we didn't generate any bricks, try again
     if #bricks == 0 then

@@ -19,4 +19,9 @@ VIRTUAL_WIDTH = 432
 VIRTUAL_HEIGHT = 243
 
 -- paddle movement speed
-PADDLE_SPEED = 200
+PADDLE_SPEED = 300
+
+
+-- keys for different power ups
+MULTIBALL = 9
+UNLOCK = 10
