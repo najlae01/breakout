@@ -2,6 +2,7 @@
 # Breakout - Classic Arcade Game
 
 This is a simple implementation of the classic arcade game Breakout, created using Lua programming language and Love2D framework.
+
 ![breakout](https://github.com/najlae01/breakout/assets/88176530/da8b34d3-4c20-4325-b560-813cef120b89)
 
 ## Introduction
